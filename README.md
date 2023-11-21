@@ -6,6 +6,17 @@ Demo application that uses Spring Data Redis and Spring Caching together.
 - See [AppCachingConfig](src/main/java/org/caching/poc/config/AppCachingConfig.java) for the Redis caching configuration.
 - See [HouseService](src/main/java/org/caching/poc/service/HouseService.java) for Spring Caching example usage.
 
+High level diagram of the application:
+
+![Architectural diagram](diagram/spring-caching-poc.drawio.png)
+
+# Technologies used
+
+- _Spring MVC_: for the REST API.
+- _Spring Data_: JPA for the Postgres connection.
+- _Spring Data Redis_: for the Redis connection.
+- _Spring Cache_: abstracts away the caching logic.
+
 # Run locally
 
 Set up the required containers:
