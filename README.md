@@ -18,3 +18,7 @@ This will create Postgres and a Redis container.
 
 Create a run configuration that launches `org.caching.poc.CachingApplication` Add all variables in `.env` to
 the run configuration, or use an env file reader plugins in IntelliJ.
+
+# Postman collection
+
+A [postman collection](spring_caching_poc.postman_collection.json) is included that can be used to invoke the API.
