@@ -5,29 +5,38 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
+import org.caching.poc.config.Constants;
 import org.caching.poc.model.Country;
 
+@Builder
 public record HouseRequest(
-        @Size(min = 3, max = 100, message = "Name must be between 3 and 100 characters")
+        @NotNull(message = Constants.NAME_MUST_BE_PROVIDED)
+        @Size(min = Constants.MIN_ATTRIBUTE_LENGTH, max = Constants.MAX_ATTRIBUTE_LENGTH, message = Constants.NAME_ALLOWED_LENGTH)
         String name,
 
-        @NotNull(message = "Country must be provided")
+        @NotNull(message = Constants.COUNTRY_MUST_BE_PROVIDED)
         Country country,
 
-        @Size(min = 3, max = 100, message = "City must be between 3 and 100 characters")
+        @NotNull(message = Constants.CITY_MUST_BE_PROVIDED)
+        @Size(min = Constants.MIN_ATTRIBUTE_LENGTH, max = Constants.MAX_ATTRIBUTE_LENGTH, message = Constants.CITY_ALLOWED_LENGTH)
         String city,
 
-        @Size(min = 3, max = 100, message = "Address must be between 3 and 100 characters")
+        @NotNull(message = Constants.ADDRESS_MUST_BE_PROVIDED)
+        @Size(min = Constants.MIN_ATTRIBUTE_LENGTH, max = Constants.MAX_ATTRIBUTE_LENGTH, message = Constants.ADDRESS_ALLOWED_LENGTH)
         String address,
 
-        @Positive(message = "Price must be positive")
+        @NotNull(message = Constants.PRICE_MUST_BE_PROVIDED)
+        @Positive(message = Constants.PRICE_MUST_BE_POSITIVE)
         int priceEuro,
 
-        @Min(value = 1900, message = "Build year must be after 1900")
-        @Max(value = 2024, message = "Build year must be before 2024")
+        @NotNull(message = Constants.BUILD_YEAR_MUST_BE_PROVIDED)
+        @Min(value = Constants.MIN_BUILD_YEAR, message = Constants.BUILD_YEAR_MUST_BE_AFTER)
+        @Max(value = Constants.MAX_BUILD_YEAR, message = Constants.BUILD_YEAR_MUST_BE_BEFORE)
         int buildYear,
 
-        @Positive(message = "House size in square meters must be positive")
+        @NotNull(message = Constants.SIZE_MUST_BE_PROVIDED)
+        @Positive(message = Constants.SIZE_MUST_BE_POSITIVE)
         int sizeSquareMeter
 ) {
 }
