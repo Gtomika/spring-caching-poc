@@ -1,10 +1,10 @@
-package org.caching.poc.controller;
+package org.caching.poc.controller.house;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.caching.poc.config.Constants;
-import org.caching.poc.controller.dto.ErrorResponse;
-import org.caching.poc.controller.dto.HouseRequest;
-import org.caching.poc.controller.dto.HouseResponse;
+import org.caching.poc.controller.ErrorResponse;
+import org.caching.poc.controller.house.dto.HouseRequest;
+import org.caching.poc.controller.house.dto.HouseResponse;
 import org.caching.poc.exception.HouseNotFoundException;
 import org.caching.poc.mapper.HouseMapper;
 import org.caching.poc.model.Country;
@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest
+@WebMvcTest(controllers = HouseController.class)
 class HouseControllerTest {
 
     private static final String HOUSE_PATH = "/api/v1/houses";

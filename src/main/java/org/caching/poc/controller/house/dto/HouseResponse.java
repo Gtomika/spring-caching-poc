@@ -1,4 +1,4 @@
-package org.caching.poc.controller.dto;
+package org.caching.poc.controller.house.dto;
 
 import lombok.Builder;
 import org.caching.poc.model.Country;

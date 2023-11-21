@@ -1,4 +1,4 @@
-package org.caching.poc.controller.dto;
+package org.caching.poc.controller;
 
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;

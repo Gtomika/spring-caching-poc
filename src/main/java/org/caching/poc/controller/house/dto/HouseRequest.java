@@ -1,4 +1,4 @@
-package org.caching.poc.controller.dto;
+package org.caching.poc.controller.house.dto;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

@@ -1,11 +1,10 @@
 package org.caching.poc.mapper;
 
-import org.caching.poc.controller.dto.HouseRequest;
-import org.caching.poc.controller.dto.HouseResponse;
+import org.caching.poc.controller.house.dto.HouseRequest;
+import org.caching.poc.controller.house.dto.HouseResponse;
 import org.caching.poc.model.House;
 import org.caching.poc.repository.entity.HouseEntity;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 
 import java.math.BigDecimal;

@@ -1,9 +1,9 @@
-package org.caching.poc.controller;
+package org.caching.poc.controller.house;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.caching.poc.controller.dto.HouseRequest;
-import org.caching.poc.controller.dto.HouseResponse;
+import org.caching.poc.controller.house.dto.HouseRequest;
+import org.caching.poc.controller.house.dto.HouseResponse;
 import org.caching.poc.mapper.HouseMapper;
 import org.caching.poc.model.House;
 import org.caching.poc.service.HouseService;
