@@ -10,6 +10,9 @@ High level diagram of the application:
 
 ![Architectural diagram](diagram/spring-caching-poc.drawio.png)
 
+If the `caching` profile is active, the app will use caching. If this profile is not active, 
+the caching layer is disabled.
+
 # Technologies used
 
 - _Spring MVC_: for the REST API.
@@ -33,6 +36,10 @@ available on http://localhost:8001, with the following credentials:
 
 Create a run configuration that launches `org.caching.poc.CachingApplication` Add all variables in `.env` to
 the run configuration, or use an env file reader plugin in IntelliJ.
+
+# Performance testing
+
+For all details about performance testing, please see the [performance testing REDAME](performance_testing/README.md).
 
 # Postman collection
 
