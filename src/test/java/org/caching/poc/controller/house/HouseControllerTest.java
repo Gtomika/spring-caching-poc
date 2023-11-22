@@ -7,7 +7,6 @@ import org.caching.poc.controller.house.dto.HouseRequest;
 import org.caching.poc.controller.house.dto.HouseResponse;
 import org.caching.poc.exception.HouseNotFoundException;
 import org.caching.poc.mapper.HouseMapper;
-import org.caching.poc.model.Country;
 import org.caching.poc.model.House;
 import org.caching.poc.service.HouseService;
 import org.junit.jupiter.api.Test;
@@ -18,10 +17,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
+import static org.caching.poc.TestConstants.HOUSE;
+import static org.caching.poc.TestConstants.HOUSE_RESPONSE;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -35,28 +34,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class HouseControllerTest {
 
     private static final String HOUSE_PATH = "/api/v1/houses";
-
-    private static final House HOUSE = House.builder()
-            .id(UUID.randomUUID())
-            .name("TEST HOUSE")
-            .country(Country.AUSTRIA)
-            .city("Wien")
-            .address("Some avenue 5")
-            .buildYear(2012)
-            .priceEuro(BigDecimal.valueOf(40000))
-            .sizeSquareMeter(60)
-            .build();
-
-    private static final HouseResponse HOUSE_RESPONSE = HouseResponse.builder()
-            .id(HOUSE.id())
-            .name(HOUSE.name())
-            .country(HOUSE.country())
-            .city(HOUSE.city())
-            .address(HOUSE.address())
-            .buildYear(HOUSE.buildYear())
-            .priceEuro(HOUSE.priceEuro())
-            .sizeSquareMeter(HOUSE.sizeSquareMeter())
-            .build();
 
     @MockBean
     private HouseService houseService;

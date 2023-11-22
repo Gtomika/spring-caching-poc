@@ -10,9 +10,6 @@ High level diagram of the application:
 
 ![Architectural diagram](diagram/spring-caching-poc.drawio.png)
 
-If the `caching` profile is active, the app will use caching. If this profile is not active, 
-the caching layer is disabled.
-
 # Technologies used
 
 - _Spring MVC_: for the REST API.
@@ -20,7 +17,26 @@ the caching layer is disabled.
 - _Spring Data Redis_: for the Redis connection.
 - _Spring Cache_: abstracts away the caching logic.
 
+# Application profiles
+
+- If the `caching` profile is active, the app will use caching. If this profile is not active,
+the caching layer is disabled.
+- If the `postgres-backend` profile is active, the local PostgreSQL database will be used to store the data.
+- If the `api-backend` profile is active, the data will be stored and retrieved by an external API, which is implemented 
+as an AWS lambda function.
+
+Please note that exactly one of the `postgres-backend` or the `api-backend` profiles must be active.
+
 # Run locally
+
+Create a run configuration that launches `org.caching.poc.CachingApplication` Add all variables in `.env` to
+the run configuration, or use an env file reader plugin in IntelliJ.
+
+Chose either the Postgres backend or the AWS API backend: this determines where the application gets the underlying data.
+
+## If using the local Postgres backend
+
+Set the `SPRING_PROFILES_ACTIVE` variable to `dev,caching,postgres-backend`.
 
 Set up the required containers:
 
@@ -34,8 +50,21 @@ available on http://localhost:8001, with the following credentials:
 - Username: default
 - Password: redispassword
 
-Create a run configuration that launches `org.caching.poc.CachingApplication` Add all variables in `.env` to
-the run configuration, or use an env file reader plugin in IntelliJ.
+## If using the AWS API backend
+
+Set the `SPRING_PROFILES_ACTIVE` variable to `dev,caching,api-backend`.
+
+Set up the required containers:
+
+```
+docker compose -f docker-compose.yaml up -d --build cache
+```
+
+This will create a Redis and a RedisInsight container. The RedisInsight is a GUI client
+available on http://localhost:8001, with the following credentials:
+
+- Username: default
+- Password: redispassword
 
 # Performance testing
 

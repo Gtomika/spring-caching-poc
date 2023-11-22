@@ -37,6 +37,8 @@ there are 5 users, and each will repeat 100 times, this means that **a total of 
 
 #### Results with caching
 
+Active profiles: `dev`, `caching` and `postgres-backend`.
+
 - Average response time: 14 ms
 - Maximum response time: 118 ms
 - 90th percentile: 28 ms
@@ -46,6 +48,8 @@ there are 5 users, and each will repeat 100 times, this means that **a total of 
 > If Xth percentile is Y ms, that means that X percent of the requests were faster than Y ms.
 
 #### Results without caching
+
+Active profiles: `dev` and `postgres-backend`.
 
 - Average response time: 14 ms
 - Maximum response time: 700 ms
@@ -65,6 +69,8 @@ ChatGPT-4 gave the following explanations:
 > 
 > However, when the cache is turned off, all data is read directly from the database, eliminating the need for the overhead of cache operations. If the application's data set is small enough and the queries are efficient, your database might be able to return the data just as quickly, or even quicker, than it could through the cache.
 
-### Result: external Postgres and Redis
+**TODO**: how will the results differ if both Postgres and Redis are hosted externally, for example on AWS?
 
-TODO: how will the results differ if both Postgres and Redis are hosted externally, for example on AWS?
+### Result: external API on AWS, local Redis
+
+TODO

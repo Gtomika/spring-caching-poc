@@ -14,7 +14,6 @@ services:
   cache:
     # contains redis server and redis insight GUI client
     image: redis/redis-stack:latest
-    restart: always
     ports:
       - '6379:6379'
       - '8001:8001'

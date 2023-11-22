@@ -1,4 +1,16 @@
+# common configuration active regardless of profiles
+logging:
+  level:
+    org.springframework.web.filter.CommonsRequestLoggingFilter: ${REQUEST_LOG_LEVEL:DEBUG}
+    org.springframework.cache: ${CACHING_LOG_LEVEL} # setting this to TRACE will log cache hits and misses
+    root: ${ROOT_LOG_LEVEL:INFO}
+
+---
 spring:
+  config:
+    activate:
+      on-profile: postgres-backend
+
   datasource:
     url: ${DATABASE_URL}
     username: ${DATABASE_USERNAME}
@@ -10,15 +22,21 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
+---
+spring:
+  config:
+    activate:
+      on-profile: api-backend
+
+---
+spring:
+  config:
+    activate:
+      on-profile: caching
+
 cache:
   redis:
     host: ${REDIS_HOST}
     port: ${REDIS_PORT}
     password: ${REDIS_PASSWORD}
     ttl-minutes: ${REDIS_TTL_MINUTES}
-
-logging:
-  level:
-    org.springframework.web.filter.CommonsRequestLoggingFilter: ${REQUEST_LOG_LEVEL:DEBUG}
-    org.springframework.cache: ${CACHING_LOG_LEVEL} # setting this to TRACE will log cache hits and misses
-    root: ${ROOT_LOG_LEVEL:INFO}
