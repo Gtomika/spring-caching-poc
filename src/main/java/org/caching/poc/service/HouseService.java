@@ -22,6 +22,7 @@ public class HouseService {
 
     private final HouseDataBackend dataBackend;
 
+    @Cacheable
     public List<House> getHouses() {
         return dataBackend.getAllHouses();
     }

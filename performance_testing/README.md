@@ -8,6 +8,57 @@ JMeter can execute the defined plan concurrently using threads, and it can repea
 Disabling and enabling the `caching` Spring profile can be used to performance test the caching and non-caching versions 
 of the application, and compare the results.
 
+## Plan: get houses load
+
+This plan simulates multiple users who get all houses using `GET /api/v1/houses`.
+
+Execute the plan and save JTL result (output JTL file can be changed):
+
+```bash
+jmeter.bat -n -t get_houses_load.jmx -l results/get_houses_load_with_cache.jtl
+```
+
+Convert the JTL result into HTML report (output directory can be changed):
+
+```bash
+jmeter.bat -g results/get_houses_load_with_cache.jtl -o reports/get_houses_load_with_cache/
+```
+
+### Results: external API on AWS, local Redis
+
+The application run using `dev` and `api-backend` profiles. The exernal API called by the application was hosted 
+in the **AWS Tokyo region**, while the app, and the Redis were in Hungary.
+
+Caching is expected to be useful here, as only one resource is accessed many times, and the non-caches data is 
+geographically far from the app.
+
+#### Results with caching
+
+Active profiles: `dev`, `caching` and `api-backend`.
+
+- Average response time: 30 ms
+- Maximum response time: 2670 ms
+- 90th percentile: 9 ms
+- 95th percentile: 11 ms
+- Transactions per second: 90
+
+> If Xth percentile is Y ms, that means that X percent of the requests were faster than Y ms.
+
+#### Results without caching
+
+Active profiles: `dev` and `api-backend`.
+
+- Average response time: 469 ms
+- Maximum response time: 1896 ms
+- 90th percentile: 963 ms
+- 95th percentile: 967 ms
+- Transactions per second: 6
+
+#### Summary
+
+Because only a single resource was requested, and due to the high geographical distances, the caching resulted in a 
+significant performance increase.
+
 ## Plan: house flow
 
 This plan consists of the following steps:
@@ -18,13 +69,13 @@ This plan consists of the following steps:
 
 Execute the plan and save JTL result (output JTL file can be changed):
 
-```
+```bash
 jmeter.bat -n -t house_flow.jmx -l results/house_flow_with_cache.jtl
 ```
 
 Convert the JTL result into HTML report (output directory can be changed):
 
-```
+```bash
 jmeter.bat -g results/house_flow_with_cache.jtl -o reports/house_flow_with_cache/
 ```
 
@@ -43,7 +94,6 @@ Active profiles: `dev`, `caching` and `postgres-backend`.
 - Maximum response time: 118 ms
 - 90th percentile: 28 ms
 - 95th percentile: 34 ms
-- 99th percentile: 56 ms
 
 > If Xth percentile is Y ms, that means that X percent of the requests were faster than Y ms.
 
@@ -55,7 +105,6 @@ Active profiles: `dev` and `postgres-backend`.
 - Maximum response time: 700 ms
 - 90th percentile: 18 ms
 - 95th percentile: 23 ms
-- 99th percentile: 47 ms
 
 #### Summary
 
@@ -70,7 +119,3 @@ ChatGPT-4 gave the following explanations:
 > However, when the cache is turned off, all data is read directly from the database, eliminating the need for the overhead of cache operations. If the application's data set is small enough and the queries are efficient, your database might be able to return the data just as quickly, or even quicker, than it could through the cache.
 
 **TODO**: how will the results differ if both Postgres and Redis are hosted externally, for example on AWS?
-
-### Result: external API on AWS, local Redis
-
-TODO
