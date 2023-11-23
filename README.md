@@ -16,6 +16,10 @@ High level diagram of the application:
 - _Spring Data_: JPA for the Postgres connection.
 - _Spring Data Redis_: for the Redis connection.
 - _Spring Cache_: abstracts away the caching logic.
+- Postgres database, for the `postgres-backend`.
+- AWS API Gateway, Lambda and SAM for the `api-backend`.
+- Redis for caching.
+- Docker for local containers.
 
 # Application profiles
 
@@ -23,7 +27,7 @@ High level diagram of the application:
 the caching layer is disabled.
 - If the `postgres-backend` profile is active, the local PostgreSQL database will be used to store the data.
 - If the `api-backend` profile is active, the data will be stored and retrieved by an external API, which is implemented 
-as an AWS lambda function.
+as an AWS API gateway + lambda function. **Configuring this requires AWS experience**.
 
 Please note that exactly one of the `postgres-backend` or the `api-backend` profiles must be active.
 
@@ -32,7 +36,8 @@ Please note that exactly one of the `postgres-backend` or the `api-backend` prof
 Create a run configuration that launches `org.caching.poc.CachingApplication` Add all variables in `.env` to
 the run configuration, or use an env file reader plugin in IntelliJ.
 
-Chose either the Postgres backend or the AWS API backend: this determines where the application gets the underlying data.
+Chose either the Postgres backend or the AWS API backend: this determines where the application gets the underlying data. 
+Unless you have relevant AWS experience, it is highly recommended to choose the Postgres backend, it is much simpler to set up.
 
 ## If using the local Postgres backend
 
@@ -40,7 +45,7 @@ Set the `SPRING_PROFILES_ACTIVE` variable to `dev,caching,postgres-backend`.
 
 Set up the required containers:
 
-```
+```bash
 docker compose -f docker-compose.yaml up -d
 ```
 
@@ -50,13 +55,17 @@ available on http://localhost:8001, with the following credentials:
 - Username: default
 - Password: redispassword
 
+The application is ready to start and connect to the Redis and Postgres containers.
+
 ## If using the AWS API backend
+
+**Warning: Do not attempt, unless you know AWS.**
 
 Set the `SPRING_PROFILES_ACTIVE` variable to `dev,caching,api-backend`.
 
 Set up the required containers:
 
-```
+```bash
 docker compose -f docker-compose.yaml up -d --build cache
 ```
 
@@ -65,6 +74,9 @@ available on http://localhost:8001, with the following credentials:
 
 - Username: default
 - Password: redispassword
+
+To set up the external API backend on AWS, see the [relevant README](spring-caching-poc-api-backend/README.md). **This 
+requires AWS experience.** After done, modify the `EXTERNAL_API_URL` in the env file to your newly created API Gateway URL.
 
 # Performance testing
 

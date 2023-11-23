@@ -27,6 +27,14 @@ spring:
   config:
     activate:
       on-profile: api-backend
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+external-api:
+  url: ${EXTERNAL_API_URL}
+  path: /external-api/v1/house-events
 
 ---
 spring:

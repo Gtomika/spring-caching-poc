@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  spring-caching-poc-api-backend
+
+  Sample SAM Template for spring-caching-poc-api-backend
+
+Globals:
+  Function:
+    Timeout: 20
+    MemorySize: 512
+
+Resources:
+  HouseFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: HouseFunction
+      Handler: house.HouseHandler::handleRequest
+      Runtime: java17
+      Architectures:
+      - x86_64
+      MemorySize: 512
+      Environment:
+        Variables:
+          PARAM1: VALUE
+      Events:
+        HouseEvent:
+          Type: Api
+          Properties:
+            Path: /external-api/v1/house-events
+            Method: post
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  HouseApi:
+    Description: API Gateway endpoint URL for Prod stage for House function
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/external-api/v1/house-events"
+  HouseFunction:
+    Description: House Lambda Function ARN
+    Value: !GetAtt HouseFunction.Arn
+  HouseFunctionIamRole:
+    Description: Implicit IAM Role created for Hello World function
+    Value: !GetAtt HouseFunctionRole.Arn

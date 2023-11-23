@@ -7,17 +7,160 @@
 	},
 	"item": [
 		{
+			"name": "External House API",
+			"item": [
+				{
+					"name": "Get all houses",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"eventType\": \"GET_ALL\",\r\n    \"rawEventBody\": \"{}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{externalApiUrl}}/external-api/v1/house-events",
+							"host": [
+								"{{externalApiUrl}}"
+							],
+							"path": [
+								"external-api",
+								"v1",
+								"house-events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get house by ID",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"eventType\": \"GET_BY_ID\",\r\n    \"rawEventBody\": \"{\\\"id\\\":\\\"6793d778-d052-4795-a80d-383c239c54a3\\\"}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{externalApiUrl}}/external-api/v1/house-events",
+							"host": [
+								"{{externalApiUrl}}"
+							],
+							"path": [
+								"external-api",
+								"v1",
+								"house-events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "House exists by ID",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"eventType\": \"EXISTS_BY_ID\",\r\n    \"rawEventBody\": \"{\\\"id\\\":\\\"6793d778-d052-4795-a80d-383c239c54a3\\\"}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{externalApiUrl}}/external-api/v1/house-events",
+							"host": [
+								"{{externalApiUrl}}"
+							],
+							"path": [
+								"external-api",
+								"v1",
+								"house-events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"eventType\": \"DELETE_BY_ID\",\r\n    \"rawEventBody\": \"{\\\"id\\\":\\\"6793d778-d052-4795-a80d-383c239c54a3\\\"}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{externalApiUrl}}/external-api/v1/house-events",
+							"host": [
+								"{{externalApiUrl}}"
+							],
+							"path": [
+								"external-api",
+								"v1",
+								"house-events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"eventType\": \"CREATE\",\r\n    \"rawEventBody\": \"{\\\"name\\\": \\\"House with nice garden\\\",\\\"country\\\": \\\"HUNGARY\\\",\\\"city\\\": \\\"Szeged\\\",\\\"address\\\": \\\"Maros street 6\\\",\\\"priceEuro\\\": 12000,\\\"buildYear\\\": 2002,\\\"sizeSquareMeter\\\": 200}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{externalApiUrl}}/external-api/v1/house-events",
+							"host": [
+								"{{externalApiUrl}}"
+							],
+							"path": [
+								"external-api",
+								"v1",
+								"house-events"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Fetch houses",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/houses",
-					"protocol": "http",
+					"raw": "{{appUrl}}/api/v1/houses",
 					"host": [
-						"localhost"
+						"{{appUrl}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"v1",
@@ -33,12 +176,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/houses/{{houseId}}",
-					"protocol": "http",
+					"raw": "{{appUrl}}/api/v1/houses/{{houseId}}",
 					"host": [
-						"localhost"
+						"{{appUrl}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"v1",
@@ -56,7 +197,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"Old house in city center\",\r\n    \"country\": \"HUNGARY\",\r\n    \"city\": \"Budapest\",\r\n    \"address\": \"Andrássy street 15, 3. floor / 9\",\r\n    \"priceEuro\": 15000,\r\n    \"buildYear\": 1973,\r\n    \"sizeSquareMeter\": 150\r\n}",
+					"raw": "{\r\n    \"name\": \"House with nice garden\",\r\n    \"country\": \"HUNGARY\",\r\n    \"city\": \"Szeged\",\r\n    \"address\": \"Maros street 6\",\r\n    \"priceEuro\": 12000,\r\n    \"buildYear\": 2002,\r\n    \"sizeSquareMeter\": 200\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -64,12 +205,10 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/v1/houses",
-					"protocol": "http",
+					"raw": "{{appUrl}}/api/v1/houses",
 					"host": [
-						"localhost"
+						"{{appUrl}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"v1",
@@ -85,12 +224,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/houses/{{houseId}}",
-					"protocol": "http",
+					"raw": "{{appUrl}}/api/v1/houses/{{houseId}}",
 					"host": [
-						"localhost"
+						"{{appUrl}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"v1",
@@ -107,12 +244,10 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/v1/cache?cacheName=houses",
-					"protocol": "http",
+					"raw": "{{appUrl}}/api/v1/cache?cacheName=houses",
 					"host": [
-						"localhost"
+						"{{appUrl}}"
 					],
-					"port": "8080",
 					"path": [
 						"api",
 						"v1",
@@ -152,6 +287,16 @@
 	"variable": [
 		{
 			"key": "houseId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "appUrl",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "externalApiUrl",
 			"value": "",
 			"type": "string"
 		}
