@@ -1,4 +1,17 @@
+# common configuration active regardless of profiles
+logging:
+  level:
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+    org.springframework.cache: TRACE
+    reactor.netty.http.client.HttpClient: DEBUG
+    root: INFO
+
+---
 spring:
+  config:
+    activate:
+      on-profile: postgres-backend
+
   datasource:
     url: unused
     username: unused
@@ -10,15 +23,29 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
+---
+spring:
+  config:
+    activate:
+      on-profile: api-backend
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+
+external-api:
+  url: http://localhost:${wiremock.server.port}
+  path: /external-api/v1/house-events
+
+---
+spring:
+  config:
+    activate:
+      on-profile: caching
+
 cache:
   redis:
     host: unused
     port: 1111
     password: unused
     ttl-minutes: 1
-
-logging:
-  level:
-    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
-    org.springframework.cache: DEBUG
-    root: INFO

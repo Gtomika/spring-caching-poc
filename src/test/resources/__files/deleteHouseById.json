@@ -1,0 +1,11 @@
+{
+  "id": "758c1659-d834-4dbe-983f-8f178f5645d3",
+  "name": "Test house #1",
+  "country": "HUNGARY",
+  "city": "Budapest",
+  "address": "Some street 1",
+  "priceEuro": 10000,
+  "buildYear": 2002,
+  "sizeSquareMeter": 100,
+  "creationTimestamp": "2023-11-20T14:36:25.516653Z"
+}

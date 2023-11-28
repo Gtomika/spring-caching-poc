@@ -3,6 +3,7 @@ logging:
   level:
     org.springframework.web.filter.CommonsRequestLoggingFilter: ${REQUEST_LOG_LEVEL:DEBUG}
     org.springframework.cache: ${CACHING_LOG_LEVEL} # setting this to TRACE will log cache hits and misses
+    reactor.netty.http.client: ${EXTERNAL_REQUESTS_LOG_LEVEL} # setting this to DEBUG will log external requests and responses
     root: ${ROOT_LOG_LEVEL:INFO}
 
 ---
