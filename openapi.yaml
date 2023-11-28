@@ -1,0 +1,238 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+- url: http://localhost:8080
+  description: Generated server url
+paths:
+  /api/v1/houses:
+    get:
+      tags:
+      - house-controller
+      operationId: getHouses
+      responses:
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HouseResponse'
+    post:
+      tags:
+      - house-controller
+      operationId: createHouse
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HouseRequest'
+        required: true
+      responses:
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "201":
+          description: Created
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HouseResponse'
+  /api/v1/houses/{id}:
+    get:
+      tags:
+      - house-controller
+      operationId: getHouseById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HouseResponse'
+    delete:
+      tags:
+      - house-controller
+      operationId: deleteHouse
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "204":
+          description: No Content
+  /api/v1/cache:
+    delete:
+      tags:
+      - cache-controller
+      operationId: clearCache
+      parameters:
+      - name: cacheName
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "404":
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "204":
+          description: No Content
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: object
+          properties:
+            all:
+              type: object
+              additionalProperties:
+                type: string
+              writeOnly: true
+            empty:
+              type: boolean
+          additionalProperties:
+            type: array
+            items:
+              type: string
+    HouseRequest:
+      required:
+      - address
+      - buildYear
+      - city
+      - country
+      - name
+      - priceEuro
+      - sizeSquareMeter
+      type: object
+      properties:
+        name:
+          maxLength: 300
+          minLength: 3
+          type: string
+        country:
+          type: string
+          enum:
+          - HUNGARY
+          - AUSTRIA
+          - SLOVAKIA
+          - ROMANIA
+          - SERBIA
+        city:
+          maxLength: 300
+          minLength: 3
+          type: string
+        address:
+          maxLength: 300
+          minLength: 3
+          type: string
+        priceEuro:
+          type: integer
+          format: int32
+        buildYear:
+          maximum: 2024
+          minimum: 1900
+          type: integer
+          format: int32
+        sizeSquareMeter:
+          type: integer
+          format: int32
+    HouseResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        country:
+          type: string
+          enum:
+          - HUNGARY
+          - AUSTRIA
+          - SLOVAKIA
+          - ROMANIA
+          - SERBIA
+        city:
+          type: string
+        address:
+          type: string
+        priceEuro:
+          type: number
+        buildYear:
+          type: integer
+          format: int32
+        sizeSquareMeter:
+          type: integer
+          format: int32
+        creationTimestamp:
+          type: string
+          format: date-time
